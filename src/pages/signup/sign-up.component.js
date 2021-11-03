@@ -1,11 +1,15 @@
 import { useState } from "react";
 import InputForm from "../../components/input-form/input-form.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
-import "./sign-in.styles.scss";
+import "./sign-up.styles.scss";
 
-function SignIn() {
-  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+function SignUp() {
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+    birthDate: "",
+    userName: "",
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -14,15 +18,23 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUserInfo({ email: "", password: "" });
+    setUserInfo({ email: "", password: "", birthDate: "", userName: "" });
   };
 
   return (
-    <div className="sign-in">
-      <h2>Already Have an account !</h2>
-      <span>Sign In With your email and password</span>
+    <div className="sign-up">
+      <h2>Do Not Have An Account !</h2>
+      <span>Register Now </span>
 
       <form onSubmit={handleSubmit}>
+        <InputForm
+          type="text"
+          name="userName"
+          handleChange={handleChange}
+          value={userInfo.userName}
+          label="User Name"
+          required
+        />
         <InputForm
           type="email"
           name="email"
@@ -41,14 +53,18 @@ function SignIn() {
           required
         />
 
-        <CustomButton type="submit"> Sign in </CustomButton>
-        <CustomButton onClick={signInWithGoogle}>
-          {" "}
-          Sign in with Google{" "}
-        </CustomButton>
+        <InputForm
+          type="date"
+          name="birthDate"
+          handleChange={handleChange}
+          value={userInfo.birthDate}
+          required
+        />
+
+        <CustomButton type="submit"> Register </CustomButton>
       </form>
     </div>
   );
 }
 
-export default SignIn;
+export default SignUp;

@@ -32,6 +32,10 @@ function Header() {
         <Link to="/sign-in" className="option">
           SIGN IN
         </Link>
+
+        <Link to="/sign-up" className="option">
+          REGISTER
+        </Link>
       </div>
     </div>
   );
