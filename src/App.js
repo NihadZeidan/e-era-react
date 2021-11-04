@@ -10,25 +10,22 @@ import SignUp from "./pages/signup/sign-up.component";
 import { auth } from "./firebase/firebase.utils";
 
 function App() {
-  const [userInfo, setUserInfo] = useState({
-    authenticatedUser: "",
-  });
-  const [unsubscribeFromAuth, setUnsubscribeFromAuth] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    setUnsubscribeFromAuth(
-      auth.onAuthStateChanged((user) => {
-        setUserInfo({ authenticatedUser: user });
-        console.log(user);
-      })
-    );
+    const unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      setUserInfo(user);
+    });
 
-    return () => unsubscribeFromAuth();
+    // This to close the auth listener when the component is unmounted
+    return () => unSubscribeFromAuth();
+
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div>
-      <Header />
+      <Header isUserSignedIn={userInfo} />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 // import { ReactComponent as Logo } from "../../assets/logo.svg";
 import "./header.styles.scss";
-function Header() {
+import { auth } from "../../firebase/firebase.utils";
+function Header({ isUserSignedIn }) {
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -29,13 +30,22 @@ function Header() {
           CONTACT
         </Link>
 
-        <Link to="/sign-in" className="option">
-          SIGN IN
-        </Link>
+        {isUserSignedIn ? (
+          <div className="option" onClick={() => auth.signOut()}>
+            {" "}
+            SIGN OUT{" "}
+          </div>
+        ) : (
+          <>
+            <Link to="/sign-in" className="option">
+              SIGN IN
+            </Link>
 
-        <Link to="/sign-up" className="option">
-          REGISTER
-        </Link>
+            <Link to="/sign-up" className="option">
+              REGISTER
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
