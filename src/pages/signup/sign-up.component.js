@@ -2,11 +2,14 @@ import { useState } from "react";
 import InputForm from "../../components/input-form/input-form.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import "./sign-up.styles.scss";
+import { auth } from "../../firebase/firebase.utils";
+import { createUserProfileDocument } from "../../firebase/firebase.utils";
 
 function SignUp() {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
+    confirmPassowrd: "",
     birthDate: "",
     userName: "",
   });
@@ -16,9 +19,35 @@ function SignUp() {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setUserInfo({ email: "", password: "", birthDate: "", userName: "" });
+
+    if (userInfo.password !== userInfo.confirmPassowrd) {
+      alert("Passwords are not the same !");
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        userInfo.email,
+        userInfo.password
+      );
+
+      await createUserProfileDocument(user, {
+        userName: userInfo.userName,
+        birthDate: userInfo.birthDate,
+      });
+
+      setUserInfo({
+        email: "",
+        password: "",
+        confirmPassowrd: "",
+        birthDate: "",
+        userName: "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -50,6 +79,15 @@ function SignUp() {
           handleChange={handleChange}
           value={userInfo.password}
           label="Password"
+          required
+        />
+
+        <InputForm
+          type="password"
+          name="confirmPassowrd"
+          handleChange={handleChange}
+          value={userInfo.confirmPassowrd}
+          label="Confirm Password"
           required
         />
 

@@ -8,13 +8,26 @@ import Header from "./components/header/header.component";
 import SignIn from "./pages/signin/sign-in.component";
 import SignUp from "./pages/signup/sign-up.component";
 import { auth } from "./firebase/firebase.utils";
+import { createUserProfileDocument } from "./firebase/firebase.utils.js";
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    const unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setUserInfo(user);
+    const unSubscribeFromAuth = auth.onAuthStateChanged(async (AuthUser) => {
+      if (AuthUser) {
+        const userRef = await createUserProfileDocument(AuthUser);
+
+        //listining to any changes to the user in the database and return the updated data
+        userRef.onSnapshot((snapshot) => {
+          setUserInfo({
+            id: snapshot.id,
+            ...snapshot.data(),
+          });
+        });
+      } else {
+        setUserInfo(null);
+      }
     });
 
     // This to close the auth listener when the component is unmounted
