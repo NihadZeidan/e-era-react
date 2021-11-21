@@ -2,7 +2,17 @@ import { Link } from "react-router-dom";
 // import { ReactComponent as Logo } from "../../assets/logo.svg";
 import "./header.styles.scss";
 import { auth } from "../../firebase/firebase.utils";
-function Header({ isUserSignedIn }) {
+
+// You can use either useSelector and useDispatch or mapStateToProps and mapDispatchToProps.
+import { useSelector } from "react-redux";
+
+import CartIcon from "../cart-icon/cartIcon.component";
+import CartDropdown from "../cart-dropdown/cartDropdown.component";
+
+function Header() {
+  const isUserSignedIn = useSelector((state) => state.user.currentUser);
+  const hidden = useSelector((state) => state.cart.hidden);
+
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -46,7 +56,9 @@ function Header({ isUserSignedIn }) {
             </Link>
           </>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 }
