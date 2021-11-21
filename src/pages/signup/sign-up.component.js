@@ -11,7 +11,7 @@ function SignUp() {
     password: "",
     confirmPassowrd: "",
     birthDate: "",
-    userName: "",
+    displayName: "",
   });
 
   const handleChange = (event) => {
@@ -34,8 +34,8 @@ function SignUp() {
       );
 
       await createUserProfileDocument(user, {
-        userName: userInfo.userName,
         birthDate: userInfo.birthDate,
+        displayName: userInfo.displayName,
       });
 
       setUserInfo({
@@ -43,7 +43,7 @@ function SignUp() {
         password: "",
         confirmPassowrd: "",
         birthDate: "",
-        userName: "",
+        displayName: "",
       });
     } catch (error) {
       console.log(error);
@@ -58,9 +58,9 @@ function SignUp() {
       <form onSubmit={handleSubmit}>
         <InputForm
           type="text"
-          name="userName"
+          name="displayName"
           handleChange={handleChange}
-          value={userInfo.userName}
+          value={userInfo.displayName}
           label="User Name"
           required
         />
