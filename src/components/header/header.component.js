@@ -9,9 +9,12 @@ import { useSelector } from "react-redux";
 import CartIcon from "../cart-icon/cartIcon.component";
 import CartDropdown from "../cart-dropdown/cartDropdown.component";
 
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+
 function Header() {
-  const isUserSignedIn = useSelector((state) => state.user.currentUser);
-  const hidden = useSelector((state) => state.cart.hidden);
+  const isUserSignedIn = useSelector((state) => selectCurrentUser(state));
+  const hidden = useSelector((state) => selectCartHidden(state));
 
   return (
     <div className="header">
