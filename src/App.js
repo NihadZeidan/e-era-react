@@ -54,7 +54,9 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/shop" component={ShopPage} />
+        {/* We do not use exact to the shop endpoint to use different cartegory as params (nesting route) */}
+        <Route  path="/shop" component={ShopPage} />
+        
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact

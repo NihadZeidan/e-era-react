@@ -1,14 +1,14 @@
-import CollectionPreview from "../../components/collectionPreview/collectionPreview.component";
-import { selectShopCollection } from "../../redux/shop/shop.selectors";
-import { useSelector } from "react-redux";
+import CollectionOverview from "../../components/collection-overview/collectionOverview.component";
+import { Route } from "react-router-dom";
+import CollectionPage from "../collectionPage/collectionPage.component";
 
-function ShopPage() {
-  const collections = useSelector(selectShopCollection);
+import "./shopPage.styles.scss";
+
+function ShopPage({ match }) {
   return (
     <div className="shop-page">
-      {collections.map(({ id, ...otherCollectionData }) => {
-        return <CollectionPreview key={id} {...otherCollectionData} />;
-      })}
+      <Route exact path={`${match.path}`} component={CollectionOverview} />
+      <Route path={`${match.path}/:collection`} component={CollectionPage} />
     </div>
   );
 }
