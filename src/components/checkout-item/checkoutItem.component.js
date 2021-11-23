@@ -21,7 +21,7 @@ const CheckoutItem = ({ cartItem }) => {
         </div>
       </span>
 
-      <span className="price">{price}</span>
+      <span className="price">${price}</span>
 
       {/* Note how I made a new component for each item so I pass the whole item as props and delete or add it to the array easily  */}
       <div
