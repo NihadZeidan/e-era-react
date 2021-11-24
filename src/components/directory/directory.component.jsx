@@ -10,7 +10,7 @@ export default function Directory() {
   return (
     <>
       <div className="introduction">
-        <h1>Welcome to our Store</h1>
+        <h1>Welcome to E-Era Store</h1>
         <p>Where shoping conecpts been redefined ...</p>
       </div>
       <div className="directory-menu">

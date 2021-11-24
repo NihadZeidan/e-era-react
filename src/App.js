@@ -7,6 +7,7 @@ import ShopPage from "./pages/shopPage/shopPage.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
+import ContactPage from "./pages/contact/contactPage.component";
 import SignIn from "./pages/signin/sign-in.component";
 import SignUp from "./pages/signup/sign-up.component";
 import { auth } from "./firebase/firebase.utils";
@@ -57,7 +58,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         {/* We do not use exact to the shop endpoint to use different cartegory as params (nesting route) */}
         <Route path="/shop" component={ShopPage} />
-
+        <Route exact path="/contact" component={ContactPage} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact
