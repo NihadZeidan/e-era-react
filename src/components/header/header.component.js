@@ -38,12 +38,11 @@ function Header() {
       </Link>
 
       <div className="options">
-        <Link to="/shop" className="option">
-          SHOP
-        </Link>
-
         <Link to="/contact" className="option">
           CONTACT
+        </Link>
+        <Link to="/shop" className="option">
+          SHOP
         </Link>
 
         {isUserSignedIn ? (
@@ -62,6 +61,7 @@ function Header() {
             </Link>
           </>
         )}
+
         <CartIcon />
       </div>
       {hidden ? null : <CartDropdown />}
