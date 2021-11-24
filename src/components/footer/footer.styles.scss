@@ -1,0 +1,21 @@
+.footer {
+  padding: 1rem 0;
+  display: flex;
+  justify-self: end;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  margin-top: 5rem;
+  border-top: solid black 1px;
+  width: 100%;
+  .links {
+    .link {
+      margin: 20px;
+      font-weight: 600;
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 1rem;
+  }
+}

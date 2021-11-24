@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../redux/cart/cart.selectors";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
 import CheckoutItem from "../../components/checkout-item/checkoutItem.component";
+import StripeCheckoutButton from "../../components/stripe-button/stripeButton.component";
 
 const CheckoutPage = () => {
   const total = useSelector((state) => selectCartTotal(state));
@@ -32,6 +33,17 @@ const CheckoutPage = () => {
 
       <div className="total">
         <span>Total: ${total}</span>
+      </div>
+
+      <div className="payment-section">
+        <div className="test-warning">
+          *Please use the following test credit card for payments*
+          <br />
+          5555 5555 5555 4444 - Exp: Any Future Date - CVV: 023
+        </div>
+        <div>
+          <StripeCheckoutButton price={total} />
+        </div>
       </div>
     </div>
   );

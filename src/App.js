@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "./pages/homePage/homePage.component";
 import ShopPage from "./pages/shopPage/shopPage.component";
 import Header from "./components/header/header.component";
+import Footer from "./components/footer/footer.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import SignIn from "./pages/signin/sign-in.component";
 import SignUp from "./pages/signup/sign-up.component";
@@ -55,8 +56,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         {/* We do not use exact to the shop endpoint to use different cartegory as params (nesting route) */}
-        <Route  path="/shop" component={ShopPage} />
-        
+        <Route path="/shop" component={ShopPage} />
+
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact
@@ -69,6 +70,7 @@ function App() {
           render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
         />
       </Switch>
+      <Footer />
     </div>
   );
 }

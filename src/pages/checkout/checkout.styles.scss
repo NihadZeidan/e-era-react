@@ -28,4 +28,19 @@
     margin-left: auto;
     font-size: 36px;
   }
+
+  .payment-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    .test-warning {
+      text-align: center;
+      font-size: 20px;
+      color: red;
+    }
+  
+  }
 }

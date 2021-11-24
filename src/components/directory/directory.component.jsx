@@ -8,10 +8,16 @@ export default function Directory() {
   const sections = useSelector(selectDirectorySections);
 
   return (
-    <div className="directory-menu">
-      {sections.map(({ id, ...otherSectionProps }) => {
-        return <MenuItem key={id} {...otherSectionProps} />;
-      })}
-    </div>
+    <>
+      <div className="introduction">
+        <h1>Welcome to our Store</h1>
+        <p>Where shoping conecpts been redefined ...</p>
+      </div>
+      <div className="directory-menu">
+        {sections.map(({ id, ...otherSectionProps }) => {
+          return <MenuItem key={id} {...otherSectionProps} />;
+        })}
+      </div>
+    </>
   );
 }

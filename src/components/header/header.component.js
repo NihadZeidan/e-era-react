@@ -19,19 +19,22 @@ function Header() {
   return (
     <div className="header">
       <Link to="/" className="logo-container">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="logo"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1"
-            d="M13 10V3L4 14h7v7l9-11h-7z"
-          />
-        </svg>
+        <div className="logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+        </div>
+
+        <span> Electronic Era </span>
       </Link>
 
       <div className="options">
