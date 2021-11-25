@@ -1,6 +1,11 @@
 body {
   font-family: "Architects Daughter", cursive;
   padding: 20px 60px;
+  background-image: radial-gradient(circle, #bfc5c9, #ffffff);
+}
+
+html{
+  height: fit-content;
 }
 
 a {
