@@ -1,9 +1,9 @@
-import "./contactPage.styles.scss"
+import "./contactPage.styles.scss";
 const ContactPage = () => {
   return (
     <div className="contact-page">
       <h1>Developed by Nihad Zeidan</h1>
-      <p>Email: nihadzeidan@gmail.com</p>
+      <a href="mailto:nihadzeidan@gmail.com">nihadzeidan@gmail.com</a>
     </div>
   );
 };
