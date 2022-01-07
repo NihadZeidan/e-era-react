@@ -13,7 +13,6 @@ const myFirebaseConfig = {
 
 firebase.initializeApp(myFirebaseConfig);
 
-
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -29,17 +28,52 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log("error creating user", error.message);
     }
   }
 
   return userRef;
 };
 
+// I used this function only once to add the collection to firestore instead of doing that manually.
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
 
+  // We have to set our data in firestore as complete batch to avoid errors and to make sure that all of the data is sent not part of it.
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((snapShotDoc) => {
+    const { title, items } = snapShotDoc.data();
+
+    return {
+      title,
+      items,
+      routeName: encodeURI(title.toLowerCase()),
+      id: snapShotDoc.id,
+    };
+  });
+
+  // convert array to map (OBJ)
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
+};
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 

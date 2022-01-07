@@ -11,11 +11,16 @@ import ContactPage from "./pages/contact/contactPage.component";
 import SignIn from "./pages/signin/sign-in.component";
 import SignUp from "./pages/signup/sign-up.component";
 import { auth } from "./firebase/firebase.utils";
-import { createUserProfileDocument } from "./firebase/firebase.utils.js";
+import {
+  createUserProfileDocument,
+  // addCollectionAndDocuments,
+} from "./firebase/firebase.utils.js";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+
+// import { selectCollectionForPreview } from "./redux/shop/shop.selectors";
 // import { createStructuredSelector } from "reselect";
 
 function App() {
@@ -25,6 +30,11 @@ function App() {
   const currentUser = useSelector((state) => selectCurrentUser(state));
   // OR
   // const currentUser = createStructuredSelector({ selectCurrentUser });
+
+  
+  // const collectionsToAddToFireStore = useSelector((state) =>
+  // selectCollectionForPreview(state)
+  // );
 
   useEffect(() => {
     const unSubscribeFromAuth = auth.onAuthStateChanged(async (AuthUser) => {
@@ -44,6 +54,11 @@ function App() {
         dispatch(setUser(null));
       }
     });
+
+    // addCollectionAndDocuments(
+    // "collections",
+    // collectionsToAddToFireStore.map(({ title, items }) => ({ title, items }))
+    // );
 
     // This to close the auth listener when the component is unmounted
     return () => unSubscribeFromAuth();
