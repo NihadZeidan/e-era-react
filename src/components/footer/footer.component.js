@@ -20,7 +20,7 @@ const Footer = () => {
           LinkedIn
         </a>
       </div>
-      <div className="copyright">All rights reserved. © E-Era 2021</div>
+      <div className="copyright">All rights reserved. © E-Era 2022</div>
     </footer>
   );
 };
