@@ -15,14 +15,17 @@ export const selectCollectionForPreview = createSelector(
     collections ? Object.keys(collections).map((key) => collections[key]) : []
 );
 
+export const selectIsFetching = createSelector(
+  [selectShop],
+  (shop) => shop.isFetching
+);
+
 // We will use this selector in loading spinner component
 export const selectIsCollectionsLoaded = createSelector(
   [selectShop],
-  // This !! will return truthy or falsy values
+  // This !! will return truthy or falsy values -> !!null = false
   (shop) => !!shop.collections
 );
-
-
 //By wrapping this function in memoize, we're saying that whenever this function gets called and receives collectionUrlParam, I want to memoize the return of this function (in this case we return a selector). If this function gets called again with the same collectionUrlParam, don't rerun this function because we'll return the same value as last time, which we've memoized so just return the selector that's been stored.
 export const selectCollection = memoize((collectionURLParam) => {
   return createSelector([selectShopCollection], (collections) =>

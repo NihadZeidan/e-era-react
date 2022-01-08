@@ -1,19 +1,15 @@
 import { useEffect } from "react";
-import CollectionOverview from "../../components/collection-overview/collectionOverview.component";
 import { Route } from "react-router-dom";
-import CollectionPage from "../collectionPage/collectionPage.component";
 import { fetchCollectionsAsync } from "../../redux/shop/shop.actions";
-import { selectIsCollectionsLoaded } from "../../redux/shop/shop.selectors";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import "./shopPage.styles.scss";
-import WithSpinner from "../../components/with-spinner/withSpinner.component";
+
+import CollectionsOverviewContainer from "../../components/collection-overview/collectionOverView.container";
+import CollectionPreviewContainer from "../collectionPage/collection.container";
 
 function ShopPage({ match }) {
-  const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
-  const CollectionPageWithSpinner = WithSpinner(CollectionPage);
   const dispatch = useDispatch();
-  const isCollectionsLoaded = useSelector((state) => selectIsCollectionsLoaded(state));
 
   useEffect(() => {
     dispatch(fetchCollectionsAsync());
@@ -24,16 +20,11 @@ function ShopPage({ match }) {
       <Route
         exact
         path={`${match.path}`}
-        render={(props) => (
-          // We have to reverse the isCollectionsLoaded value to render the spinner when the collections is false (empty) 
-          <CollectionOverviewWithSpinner isLoading={!isCollectionsLoaded} {...props} />
-        )}
+        component={CollectionsOverviewContainer}
       />
       <Route
         path={`${match.path}/:collection`}
-        render={(props) => (
-          <CollectionPageWithSpinner isLoading={!isCollectionsLoaded} {...props} />
-        )}
+        component={CollectionPreviewContainer}
       />
     </div>
   );
