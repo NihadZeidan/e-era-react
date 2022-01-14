@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 // import { ReactComponent as Logo } from "../../assets/logo.svg";
 import "./header.styles.scss";
-import { auth } from "../../firebase/firebase.utils";
 
 // You can use either useSelector and useDispatch or mapStateToProps and mapDispatchToProps.
 import { useSelector } from "react-redux";
@@ -12,10 +11,13 @@ import CartDropdown from "../cart-dropdown/cartDropdown.component";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 
+import { useDispatch } from "react-redux";
+import { userSignOutStart } from "../../redux/user/user.actions";
+
 function Header() {
   const isUserSignedIn = useSelector((state) => selectCurrentUser(state));
   const hidden = useSelector((state) => selectCartHidden(state));
-
+  const dispatch = useDispatch();
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -46,7 +48,7 @@ function Header() {
         </Link>
 
         {isUserSignedIn ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div className="option" onClick={() => dispatch(userSignOutStart())}>
             {" "}
             SIGN OUT{" "}
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import HomePage from "./pages/homePage/homePage.component";
 import ShopPage from "./pages/shopPage/shopPage.component";
 import Header from "./components/header/header.component";
@@ -10,14 +11,15 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 import ContactPage from "./pages/contact/contactPage.component";
 import SignIn from "./pages/signin/sign-in.component";
 import SignUp from "./pages/signup/sign-up.component";
-import { auth } from "./firebase/firebase.utils";
-import {
-  createUserProfileDocument,
-  // addCollectionAndDocuments,
-} from "./firebase/firebase.utils.js";
+import { checkUserAuthentication } from "./redux/user/user.actions";
+// import { auth } from "./firebase/firebase.utils";
+// import {
+// createUserProfileDocument,
+// addCollectionAndDocuments,
+// } from "./firebase/firebase.utils.js";
 
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./redux/user/user.actions";
+import { useSelector } from "react-redux";
+// import { setUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
 // import { selectCollectionForPreview } from "./redux/shop/shop.selectors";
@@ -26,45 +28,49 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 function App() {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(checkUserAuthentication());
+  }, []);
+
   // You can pull selectors with one of these two methods
   const currentUser = useSelector((state) => selectCurrentUser(state));
   // OR
   // const currentUser = createStructuredSelector({ selectCurrentUser });
 
-  
   // const collectionsToAddToFireStore = useSelector((state) =>
   // selectCollectionForPreview(state)
   // );
 
-  useEffect(() => {
-    const unSubscribeFromAuth = auth.onAuthStateChanged(async (AuthUser) => {
-      if (AuthUser) {
-        const userRef = await createUserProfileDocument(AuthUser);
+  // This was the observable pattren to sign in the user, I replaced it with redux SAGA
+  // useEffect(() => {
+  // const unSubscribeFromAuth = auth.onAuthStateChanged(async (AuthUser) => {
+  // if (AuthUser) {
+  // const userRef = await createUserProfileDocument(AuthUser);
 
-        //listining to any changes to the user in the database and return the updated data
-        userRef.onSnapshot((snapshot) => {
-          dispatch(
-            setUser({
-              id: snapshot.id,
-              ...snapshot.data(),
-            })
-          );
-        });
-      } else {
-        dispatch(setUser(null));
-      }
-    });
+  //listining to any changes to the user in the database and return the updated data
+  //     userRef.onSnapshot((snapshot) => {
+  //       dispatch(
+  //         setUser({
+  //           id: snapshot.id,
+  //           ...snapshot.data(),
+  //         })
+  //       );
+  //     });
+  //   } else {
+  //     dispatch(setUser(null));
+  //   }
+  // });
 
-    // addCollectionAndDocuments(
-    // "collections",
-    // collectionsToAddToFireStore.map(({ title, items }) => ({ title, items }))
-    // );
+  // addCollectionAndDocuments(
+  // "collections",
+  // collectionsToAddToFireStore.map(({ title, items }) => ({ title, items }))
+  // );
 
-    // This to close the auth listener when the component is unmounted
-    return () => unSubscribeFromAuth();
+  // This to close the auth listener when the component is unmounted
+  // return () => unSubscribeFromAuth();
 
-    // eslint-disable-next-line
-  }, []);
+  // eslint-disable-next-line
+  // }, []);
 
   return (
     <div>

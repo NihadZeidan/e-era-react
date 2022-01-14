@@ -1,18 +1,19 @@
 import { useState } from "react";
 import InputForm from "../../components/input-form/input-form.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import { useDispatch } from "react-redux";
+import { userSignUpStart } from "../../redux/user/user.actions";
 import "./sign-up.styles.scss";
-import { auth } from "../../firebase/firebase.utils";
-import { createUserProfileDocument } from "../../firebase/firebase.utils";
 
 function SignUp() {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
     confirmPassowrd: "",
-    birthDate: "",
     displayName: "",
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -27,27 +28,8 @@ function SignUp() {
       return;
     }
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        userInfo.email,
-        userInfo.password
-      );
-
-      await createUserProfileDocument(user, {
-        birthDate: userInfo.birthDate,
-        displayName: userInfo.displayName,
-      });
-
-      setUserInfo({
-        email: "",
-        password: "",
-        confirmPassowrd: "",
-        birthDate: "",
-        displayName: "",
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const { email, password, displayName } = userInfo;
+    dispatch(userSignUpStart({ email, password, displayName }));
   };
 
   return (
@@ -88,14 +70,6 @@ function SignUp() {
           handleChange={handleChange}
           value={userInfo.confirmPassowrd}
           label="Confirm Password"
-          required
-        />
-
-        <InputForm
-          type="date"
-          name="birthDate"
-          handleChange={handleChange}
-          value={userInfo.birthDate}
           required
         />
 
