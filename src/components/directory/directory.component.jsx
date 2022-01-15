@@ -12,8 +12,8 @@ export default function Directory() {
   return (
     <>
       <div className="introduction">
-        <h1>Welcome {user ? user.displayName : "to E-Era Store"} </h1>
-        <p>Where shoping conecpts been redefined ...</p>
+        <h1>Welcome {user ? user.displayName : null} </h1>
+        <p>E-Era Store, Where shoping conecpts been redefined ...</p>
       </div>
       <div className="directory-menu">
         {sections.map(({ id, ...otherSectionProps }) => {
