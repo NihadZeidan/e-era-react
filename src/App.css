@@ -4,11 +4,29 @@ body {
   background-image: radial-gradient(circle, #bfc5c9, #ffffff);
 }
 
-html{
+html {
   height: fit-content;
 }
 
 a {
   text-decoration: none;
   color: black;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b1b6bb;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #797d80;
 }
