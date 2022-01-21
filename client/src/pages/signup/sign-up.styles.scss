@@ -5,4 +5,8 @@
   flex-direction: column;
   border: solid black 1px;
   padding: 2%;
+
+  @media screen and (max-width: 800px) {
+    width: 85vw;
+  }
 }

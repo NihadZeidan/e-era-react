@@ -2,6 +2,10 @@ body {
   font-family: "Architects Daughter", cursive;
   padding: 20px 60px;
   background-image: radial-gradient(circle, #bfc5c9, #ffffff);
+
+  @media screen and (max-width: 800px) {
+    padding: 10px;
+  }
 }
 
 html {
@@ -12,7 +16,6 @@ a {
   text-decoration: none;
   color: black;
 }
-
 
 ::-webkit-scrollbar {
   width: 10px;

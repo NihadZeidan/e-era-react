@@ -1,18 +1,37 @@
 .header {
   height: 60px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+
+  @media screen and (max-width: 800px) {
+    
+    height: 50px;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
 
   .logo-container {
     font-size: 20px;
     font-weight: bold;
     width: 20%;
-
+    
+    @media screen and (max-width: 800px) {
+      width: 10%;
+      padding: 0;
+    }
+    
     .logo {
       display: inline-block;
-      width: 10%;
-      height: 10%;
+      width: 20%;
+      height: 20%;
+      
+      @media screen and (max-width: 800px) {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 
@@ -23,12 +42,26 @@
     align-items: center;
     justify-content: flex-end;
 
+    @media screen and (max-width: 800px) {
+      width: 90%;
+    }
+
     .option {
       padding: 10px 15px;
       cursor: pointer;
       &:hover {
         transform: scale(1.3);
         transition: transform 0.3s ease-in-out;
+      }
+
+      @media screen and (max-width: 800px) {
+        padding: 0;
+        margin-left: 4px;
+        margin-right: 4px;
+        font-size: 13px;
+        &:hover{
+          transform: none
+        }
       }
     }
   }

@@ -31,6 +31,12 @@ $main-color: black;
     &:focus ~ .form-input-label {
       @include shrinkLabel();
     }
+
+    @media screen and (max-width: 800px) {
+      width: 95%;
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 
   input[type="password"] {

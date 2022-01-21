@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect } from "react";
-import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import HomePage from "./pages/homePage/homePage.component";
@@ -12,6 +11,7 @@ import ContactPage from "./pages/contact/contactPage.component";
 import SignIn from "./pages/signin/sign-in.component";
 import SignUp from "./pages/signup/sign-up.component";
 import { checkUserAuthentication } from "./redux/user/user.actions";
+import "./App.scss";
 // import { auth } from "./firebase/firebase.utils";
 // import {
 // createUserProfileDocument,

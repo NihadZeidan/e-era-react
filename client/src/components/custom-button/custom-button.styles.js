@@ -25,6 +25,18 @@ export const CustomButtonContainer = styled.button`
   display: flex;
   justify-content: center;
 
+  @media screen and (max-width: 800px) {
+    display: block;
+    opacity: 0.9;
+    min-width: unset;
+    font-size: 12px;
+    letter-spacing: unset;
+    line-height: unset;
+    padding: 0 20px;
+    text-align: center;
+    justify-content: center;
+  }
+
   ${getDifferentButtonStyles}
 `;
 
@@ -51,6 +63,11 @@ const invertedStyles = css`
     color: white;
     border: none;
   }
+
+  @media screen and (max-width: 800px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const regularStyles = css`
@@ -61,5 +78,10 @@ const regularStyles = css`
     background-color: white;
     color: black;
     border: 1px solid black;
+  }
+
+  @media screen and (max-width: 800px) {
+    align-items: center;
+    justify-content: center;
   }
 `;

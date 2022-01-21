@@ -36,7 +36,7 @@ function Header() {
           </svg>
         </div>
 
-        <span> Electronic Era </span>
+        {/* <span> Electronic Era </span> */}
       </Link>
 
       <div className="options">
