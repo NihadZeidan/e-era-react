@@ -1,4 +1,5 @@
 import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
 
 const StripeCheckoutButton = ({ price }) => {
   // We need to convert the price to cents accourdnig to Stripe API
@@ -9,8 +10,17 @@ const StripeCheckoutButton = ({ price }) => {
     "pk_test_51JzLTSHwqUbMWz7msO9wZmg23dbcFpstWu3gMSKVGIBBUCS6a1KOu1KAMeSJkqfnlrLh7AQbS9A2BrBr6HDY4lfR00yNVyjKY3";
 
   const onToken = (token) => {
-    console.log(token);
-    alert("Payment Successful !");
+    axios
+      .post("/payment", { amount: priceForStripe, token })
+      .then((response) => {
+        alert("Payment Successful");
+      })
+      .catch((error) => {
+        console.log("Payment error: ", JSON.parse(error));
+        alert(
+          "There was an issue with your payment. Please make sure you use the provided credit card."
+        );
+      });
   };
 
   return (
