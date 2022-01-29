@@ -31,5 +31,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "radial-gradient(circle, #bfc5c9, #ffffff)"
+  "background_color": "#bfc5c9"
 }
