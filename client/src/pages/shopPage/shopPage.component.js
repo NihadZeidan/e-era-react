@@ -1,12 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import { fetchCollectionsAsync } from "../../redux/shop/shop.actions";
 import { useDispatch } from "react-redux";
+import Spinner from "../../components/spinner/spinner.component";
+import ErrorBoundary from "../../components/error-boundary/error-boundary.component";
 
 import "./shopPage.styles.scss";
 
-import CollectionsOverviewContainer from "../../components/collection-overview/collectionOverView.container";
-import CollectionPreviewContainer from "../collectionPage/collection.container";
+const CollectionsOverviewContainer = lazy(() =>
+  import("../../components/collection-overview/collectionOverView.container")
+);
+const CollectionPreviewContainer = lazy(() =>
+  import("../collectionPage/collection.container")
+);
 
 function ShopPage({ match }) {
   const dispatch = useDispatch();
@@ -17,15 +23,19 @@ function ShopPage({ match }) {
 
   return (
     <div className="shop-page">
-      <Route
-        exact
-        path={`${match.path}`}
-        component={CollectionsOverviewContainer}
-      />
-      <Route
-        path={`${match.path}/:collection`}
-        component={CollectionPreviewContainer}
-      />
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <Route
+            exact
+            path={`${match.path}`}
+            component={CollectionsOverviewContainer}
+          />
+          <Route
+            path={`${match.path}/:collection`}
+            component={CollectionPreviewContainer}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }

@@ -1,15 +1,12 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import HomePage from "./pages/homePage/homePage.component";
-import ShopPage from "./pages/shopPage/shopPage.component";
+
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
-import CheckoutPage from "./pages/checkout/checkout.component";
-import ContactPage from "./pages/contact/contactPage.component";
-import SignIn from "./pages/signin/sign-in.component";
-import SignUp from "./pages/signup/sign-up.component";
+import Spinner from "./components/spinner/spinner.component";
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 import { checkUserAuthentication } from "./redux/user/user.actions";
 import "./App.scss";
 // import { auth } from "./firebase/firebase.utils";
@@ -24,6 +21,14 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 
 // import { selectCollectionForPreview } from "./redux/shop/shop.selectors";
 // import { createStructuredSelector } from "reselect";
+
+// Lazy Loading our components
+const HomePage = lazy(() => import("./pages/homePage/homePage.component"));
+const ShopPage = lazy(() => import("./pages/shopPage/shopPage.component"));
+const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
+const ContactPage = lazy(() => import("./pages/contact/contactPage.component"));
+const SignIn = lazy(() => import("./pages/signin/sign-in.component"));
+const SignUp = lazy(() => import("./pages/signup/sign-up.component"));
 
 function App() {
   const dispatch = useDispatch();
@@ -76,21 +81,25 @@ function App() {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        {/* We do not use exact to the shop endpoint to use different cartegory as params (nesting route) */}
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/contact" component={ContactPage} />
-        <Route exact path="/checkout" component={CheckoutPage} />
-        <Route
-          exact
-          path="/sign-in"
-          render={() => (currentUser ? <Redirect to="/" /> : <SignIn />)}
-        />
-        <Route
-          exact
-          path="/sign-up"
-          render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
-        />
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path="/" component={HomePage} />
+            {/* We do not use exact to the shop endpoint to use different cartegory as params (nesting route) */}
+            <Route path="/shop" component={ShopPage} />
+            <Route exact path="/contact" component={ContactPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route
+              exact
+              path="/sign-in"
+              render={() => (currentUser ? <Redirect to="/" /> : <SignIn />)}
+            />
+            <Route
+              exact
+              path="/sign-up"
+              render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
       <Footer />
     </div>
