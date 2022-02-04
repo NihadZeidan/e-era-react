@@ -25,9 +25,13 @@ export const clearCart = () => {
   };
 };
 
+export const updateCartInFirebase = () => ({
+  type: cartActionTypes.UPDATE_CART_IN_FIREBASE,
+});
+
 export const userCartFromFirebase = (cart) => {
   return {
     type: cartActionTypes.USER_CART_FROM_FIREBASE,
     payload: cart,
-  }
-}
+  };
+};
