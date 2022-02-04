@@ -17,11 +17,11 @@ app.use(cors());
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// This to add HTTPS to Heroku
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 if (process.env.NODE_ENV === "Production") {
   app.use(express.static(path.join(__dirname, "client/build")));
+  // This to add HTTPS to Heroku
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));

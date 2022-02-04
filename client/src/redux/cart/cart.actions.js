@@ -24,3 +24,10 @@ export const clearCart = () => {
     type: cartActionTypes.CLEAR_CART,
   };
 };
+
+export const userCartFromFirebase = (cart) => {
+  return {
+    type: cartActionTypes.USER_CART_FROM_FIREBASE,
+    payload: cart,
+  }
+}
