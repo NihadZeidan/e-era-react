@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header when the user is null Should render Header Component 1`] = `ShallowWrapper {}`;
+
+exports[`Header when the user is present Should render Header Component 1`] = `ShallowWrapper {}`;

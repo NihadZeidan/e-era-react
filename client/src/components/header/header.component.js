@@ -40,7 +40,7 @@ function Header() {
         {/* <span> Electronic Era </span> */}
       </Link>
 
-      <div className="options">
+      <div className="options" id="optionLinks">
         <Link to="/contact" className="option">
           CONTACT
         </Link>
@@ -49,7 +49,7 @@ function Header() {
         </Link>
 
         {isUserSignedIn ? (
-          <div className="option" onClick={() => dispatch(userSignOutStart())}>
+          <div className="option" id="signOut" onClick={() => dispatch(userSignOutStart())}>
             {" "}
             SIGN OUT{" "}
           </div>

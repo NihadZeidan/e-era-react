@@ -13,8 +13,8 @@ const CartDropdown = ({ history }) => {
   // const cartItems = useSelector((state) => state.cart.cartItems);
 
   const cartItems = useSelector((state) => selectCartItems(state));
-
   const dispatch = useDispatch();
+
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
