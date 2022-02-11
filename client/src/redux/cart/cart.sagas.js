@@ -12,20 +12,28 @@ export function* signOutSuccess() {
 }
 
 export function* checkUserCartOnSignIn() {
-  const user = yield select(selectCurrentUser);
-  const userCart = yield call(getUserCartRef, user.id);
-  yield put(userCartFromFirebase(userCart));
+  try {
+    const user = yield select(selectCurrentUser);
+
+    const userCartRef = yield call(getUserCartRef, user.id);
+
+    const userCartSnapShot = yield userCartRef.get();
+
+    yield put(userCartFromFirebase(userCartSnapShot.data().cartItems));
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export function* userCartChanged() {
   const user = yield select(selectCurrentUser);
+  const cartItems = yield select(selectCartItems);
 
   if (user) {
     try {
-      const cartItems = yield select(selectCartItems);
       const userCartRef = yield call(getUserCartRef, user.id);
 
-      yield userCartRef.update({ cartItems });
+      yield userCartRef.update({ cartItems: cartItems });
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +46,7 @@ export function* onUserSignOut() {
 }
 
 export function* onUserSignIn() {
-  yield takeLatest(UserActionTypes.USER_SIGN_IN_SUCCESS, checkUserCartOnSignIn);
+  yield takeLatest(UserActionTypes.SIGN_IN_SUCCESS, checkUserCartOnSignIn);
 }
 
 export function* onCartItemChange() {

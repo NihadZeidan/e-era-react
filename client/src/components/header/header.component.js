@@ -18,6 +18,7 @@ function Header() {
   const isUserSignedIn = useSelector((state) => selectCurrentUser(state));
   const hidden = useSelector((state) => selectCartHidden(state));
   const dispatch = useDispatch();
+
   return (
     <div className="header">
       <Link to="/" className="logo-container">

@@ -7,22 +7,22 @@ const selectCart = (state) => state.cart;
 
 export const selectCartHidden = createSelector(
   [selectCart],
-  (cart) => cart.hidden
+  (cart) => cart?.hidden
 );
 
 // Output selector
 export const selectCartItems = createSelector(
   [selectCart],
-  (cart) => cart.cartItems
+  (cart) => cart?.cartItems
 );
 
 // Output selector
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
-  (cartItems) => cartItems.reduce((acc, item) => acc + item.quantity, 0)
+  (cartItems) => cartItems?.reduce((acc, item) => acc + item.quantity, 0)
 );
 
 // Output selector
 export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
-  cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)
+  cartItems?.reduce((acc, item) => acc + item.quantity * item.price, 0)
 );

@@ -13,11 +13,12 @@ import {
   createUserProfileDocument,
   auth,
   getCurrentUser,
-  signInWithGoogle,
+  googleProvider,
 } from "../../firebase/firebase.utils";
 
 export function* getUserAuthSnapshot(userAuth, otherData) {
   try {
+    // this yield is to wait for the userAuth to be resolved
     const userRef = yield call(createUserProfileDocument, userAuth, otherData);
 
     const userSnapshot = yield userRef.get();
@@ -30,7 +31,7 @@ export function* getUserAuthSnapshot(userAuth, otherData) {
 
 export function* signInUserWithGoogle() {
   try {
-    const { user } = yield signInWithGoogle();
+    const { user } = yield auth.signInWithPopup(googleProvider);
     yield getUserAuthSnapshot(user);
   } catch (error) {
     yield put(signInFailure(error));
