@@ -1,2 +1,1 @@
 (this["webpackJsonpe-era-react"]=this["webpackJsonpe-era-react"]||[]).push([[10],{153:function(e,a,c){},159:function(e,a,c){"use strict";c.r(a);c(153);var i=c(13);a.default=function(){return Object(i.jsxs)("div",{className:"contact-page",children:[Object(i.jsx)("h1",{children:"Developed by Nihad Zeidan"}),Object(i.jsx)("a",{href:"mailto:nihadzeidan@gmail.com",children:"nihadzeidan@gmail.com"})]})}}}]);
-//# sourceMappingURL=10.8197de08.chunk.js.map
